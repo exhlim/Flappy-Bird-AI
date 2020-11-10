@@ -134,7 +134,7 @@ def main(genomes, config):
     for _, genome in genomes:
         network = neat.nn.FeedForwardNetwork.create(genome, config)
         neural_networks.append(network)
-        genome.fitness = 0  # Initial fitness to 0
+        genome.fitness = 0  # Initial fitness set to 0
         ind_genome.append(genome)
         birds.append(Bird(230, 350))
 
