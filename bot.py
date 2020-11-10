@@ -116,6 +116,9 @@ def draw_window(win, birds, pipes, base, score, generation):
     text = STATE_FONT.render("Gen: " + str(generation), 1,
                              (255, 255, 255))
     win.blit(text, (10, 10))
+    text = STATE_FONT.render("Birds: " + str(len(birds)), 1,
+                             (255, 255, 255))
+    win.blit(text, (200, 10))
 
     base.draw(win)
     pygame.display.update()
@@ -190,7 +193,7 @@ def main(genomes, config):
                     pipe.passed = True
                     add_pipe = True
             if pipe.x + pipe.PIPE_BOTTOM.get_width() < 0:
-                print("Removing pipe that was passed")
+                print("Removing pipe")
                 pipes.pop(0)
         # Added score and pipes
         if add_pipe:
@@ -211,8 +214,12 @@ def main(genomes, config):
 
 def run(file):
     # Load config file
-    config = neat.config.Config(neat.DefaultGenome, neat.DefaultReproduction,
-                                neat.DefaultSpeciesSet, neat.DefaultStagnation, file)
+    config = neat.config.Config(
+        neat.DefaultGenome,
+        neat.DefaultReproduction,
+        neat.DefaultSpeciesSet,
+        neat.DefaultStagnation,
+        file)
     # Set up pop
     population = neat.Population(config)
 
@@ -225,6 +232,7 @@ def run(file):
     winner = population.run(main, 50)
 
 
+# time.sleep(4)
 # Give us our current dir
 if __name__ == "__main__":
     local_dir = os.path.dirname(__file__)
